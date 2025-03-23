@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="dao.ProveedorMapper">
+
+    <resultMap id="ProveedorMap" type="models.Proveedor">
+        <id column="id_proveedor" property="idProveedor" />
+        <result column="tipo_documento" property="tipoDocumento" />
+        <result column="documento_identidad" property="documentoIdentidad" />
+        <result column="nombres" property="nombres" />
+        <result column="apellido_paterno" property="apellidoPaterno" />
+        <result column="apellido_materno" property="apellidoMaterno" />
+        <result column="correo" property="correo" />
+        <result column="telefono" property="telefono" />
+        <result column="direccion" property="direccion" />
+        <result column="codigo_pais" property="codigoPais" />
+    </resultMap>
+
+    <select id="listarProveedores" parameterType="int" resultMap="ProveedorMap">
+        SELECT 
+            id_proveedor, tipo_documento, documento_identidad, nombres, 
+            apellido_paterno, apellido_materno, correo, telefono, 
+            direccion, codigo_pais
+        FROM proveedores
+        WHERE estado_auditoria = '1' and id_proveedor = #{idProveedor}
+    </select>
+    
+</mapper>

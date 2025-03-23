@@ -39,4 +39,28 @@
  		WHERE p.estado_auditoria = '1' and p.id_subcategoria = #{idSubcategoria}
  	</select>
  	
+ 	
+ 	<select id="listarDetalleProducto" parameterType="int" resultMap="ProductoMap">
+    SELECT 
+        p.id_producto, 
+        p.nombre, 
+        p.modelo,
+        p.tiempo_garantia_meses,
+        p.descripcion, 
+        p.precio, 
+        p.stock, 
+        p.codigo_interno, 
+        pi.imagen_url,
+        p.id_marca,
+        p.id_proveedor
+    FROM productos p
+    LEFT JOIN producto_imagenes pi 
+        ON pi.id_producto = p.id_producto 
+    WHERE 
+        p.estado_auditoria = '1' 
+        AND pi.estado_auditoria = '1'
+        AND p.id_producto = #{idProducto}
+    ORDER BY pi.fecha_creacion ASC;
+</select>
+ 	
  </mapper>
